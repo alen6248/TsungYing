@@ -12,6 +12,7 @@
 
 using namespace std;
 
+enum cards_holder{Player,Deck};
 
 class Player{
 	private:
@@ -39,7 +40,7 @@ class Player{
 		void judge_hand_type();  //﹍てHandtype
 		void sort_cards(); //ゑ计ゑ︹ㄏノcard_compare
 		bool compare(const Player* const that); //this墓that肚1
-
+        void show_hand_type();
 		//void print_cards();	//簿Cards
 		char* get_name() const;
 		int get_round(); //肚计
@@ -48,14 +49,18 @@ class Player{
 }
 
 Player::Player(char* name,int money,Cards* Deck){ //constructor
-    use_which_deck=Deck;
-    player_name=name;
-    player_cards.set_player_cards(Cards* use_which_deck)
     money_left=money;
-    round=0; //计秨﹍砞﹚0
-    judge_hand_type(); //秨﹍碞耞Handtype
+    player_name=name;
+    round=0;     //计秨﹍砞﹚0
     cout<<"Player "<<player_name<<" enter the game"<<"   money : "
     <<get_money_left()<<endl;
+
+
+    use_which_deck=Deck;
+    //player_cards.set_player_cards(Cards* use_which_deck)
+     // player_cards constructor 秈︽﹍て
+    judge_hand_type(); //秨﹍碞耞Handtype
+
 }
 
 Player::~Player(){ //destructor
@@ -64,6 +69,26 @@ Player::~Player(){ //destructor
     cout<<"Player "<<player_name<<" leave the game"
     <<"   total rounds : "<<get_round()<<"   money left : "<<get_money_left()<<endl;
 }
+
+void Player::show_hand_type(){
+    switch(Handtype.Type){
+        case straight_flush:    cout<<"Hand type : Straight flush "<<endl; break;
+        case four_of_a_kind:    cout<<"Hand type : Four of a kind "<<endl; break;
+        case full_house:    cout<<"Hand type : Full house "<<endl; break;
+        case flush:         cout<<"Hand type : Flush "<<endl; break;
+        case straight:       cout<<"Hand type : Straight "<<endl; break;
+        case three_of_a_kind:    cout<<"Hand type : Three of a kind "<<endl; break;
+        case two_pair:      cout<<"Hand type : Two pair "<<endl; break;
+        case one_pair:      cout<<"Hand type : One pair "<<endl; break;
+        case high_card:     cout<<"Hand type : High Card "<<endl; break;
+    }
+    cout<<"Dominant card:"<<endl;
+    Handtype.dominate_card.print_card();
+    cout<<endl;
+
+}
+
+
 
 void Player::sort_cards(){
     //獁ユ传猭

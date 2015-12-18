@@ -28,9 +28,10 @@ class Cards{
 		}
 		Card cards[cards_num];
 
-		Cards(int card_num, card_holder holder_type);
+		Cards(card_holder holder_type);
         //constructor, 用holder_type判斷為玩家或是Deck
 
+        Card(); //初始化 player_cards 所用之無參數constructor
 		~Cards(); //destructor
 
 
@@ -128,13 +129,20 @@ int Cards::get_cards_num(){
     return cards_num;
 }
 
-Cards::Cards(int card_num, card_holder holder_type){ //constructor
+Cards::Cards(card_holder holder_type){ //constructor
     if(holder_type==Deck){  //Deck
+        cards_num=52;
         creat_deck();
     }
     else if(holder_type==Player){ //Player
+        cards_num=5;
         set_player_cards();
     }
+}
+
+Cards::Cards(){
+    cards_num=5;
+    set_player_cards();
 }
 
 Cards::~Cards(){ //destructor //每回合結束時摧毀手排
